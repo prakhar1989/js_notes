@@ -63,7 +63,8 @@ var person = new Person();
 	    
 	    function smallest(arr) {
 	    	return Math.min.apply(Math, arr); 
-	    }	    
+	    }
+	    
 	    function largest(arr){
 	    	return Math.max.apply(Math, arr); 
 	    }
@@ -102,15 +103,6 @@ d. Invocations with call and apply
 console.log.apply(this, [12, 31, 41]);
 
 console.log.call(this, 12, 31, 41);
-
-function forEach(list, callback) {
-    for (var i = 0; i < list.length; i++) {
-        callback.call(list[i], i);	
-    }
-}
-var names = ["alpha", "beta", "gamma", "delta"];
-
-forEach(names, function(index) { console.log(this, index); });
 </pre>
 
 ### Inline Functions
