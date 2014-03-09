@@ -105,6 +105,19 @@ console.log.apply(this, [12, 31, 41]);
 console.log.call(this, 12, 31, 41);
 </pre>
 
+### Arguments
+
+Arguments is an Array like object. It supports iteration, indexing and a length property but thats where the similarity ends. However, it can be called with Array methods like so 
+
+<pre>
+var args = Array.prototype.slice.call(arguments);
+
+// to find the maximum value in the arguments
+function findMaxArg(){
+    return Math.max.apply(Math, Array.prototype.slice.call(arguments));
+}
+</pre>
+
 ### Inline Functions
 
 <pre>
@@ -116,3 +129,48 @@ var myObj = {
 </pre>
 
 Inline functions are **only** visible within the scope of the functions themselves. Hence, they dont act like function declarations  that are attached to the global scope, but rather are only available inside the scope of their definition itself.
+
+#### Function Length
+
+All functions have a `length` property (not to be confused with `arguments.length`) property which specifies the number of named arguments that gets passed to the function.
+
+<pre>
+function myFunc(first, second, third) {
+    console.log("named:", myFunc.length);
+    console.log("args passed:", arguments.length);
+}
+
+myFunc("hello", "world") 
+// named: 3
+// args passed: 2
+</pre>
+
+**Overloading functions**
+
+<pre>
+var something = {};
+addMethod(something, "zero", function() { /* do something */});
+addMethod(something, "one", function(a) { /* do something */});
+addMethod(something, "two", function(a, b) { /* do something */});
+
+function addMethod(obj, name, fn) {
+    var old = obj[name];
+    obj[name] = function() {
+        if (fn.length === arguments.length)
+            return fn.apply(this, arguments)
+        else if (typeof old === "function")
+            return old.apply(this, arguments);
+    };
+}
+</pre>
+
+#### Is a function?
+
+<pre>
+console.log( typeof console.log === "function" );
+// the above some browser inconsistencies, hence the best way is to check using below
+
+function isFunction(fn) {
+    return Object.prototype.toString.call(fn) === "[object Function]"
+}
+</pre>
