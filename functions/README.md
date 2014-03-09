@@ -57,9 +57,16 @@ var person = new Person();
 </pre>
 
 4. Via a function's `apply()` or `call()` methods.
-<pre>
-console.log.call(this, "hello world"); // hello world
-</pre>
+
+
+	    console.log.call(this, "hello world");
+	    
+	    function smallest(arr) {
+	    	return Math.min.apply(Math, arr); 
+	    }	    
+	    function largest(arr){
+	    	return Math.max.apply(Math, arr); 
+	    }
 
 ## Function Arguments 
 
@@ -95,8 +102,10 @@ d. Invocations with call and apply
 console.log.apply(this, [12, 31, 41]);
 console.log.call(this, 12, 31, 41);
 function forEach(list, callback) {
-	for (var i = 0; i < list.length; i++) {
-		callback.call(list[i], i);	}}
+    for (var i = 0; i < list.length; i++) {
+        callback.call(list[i], i);	
+    }
+}
 var names = ["alpha", "beta", "gamma", "delta"];
 forEach(names, function(index) { console.log(this, index); });
 </pre>
@@ -106,7 +115,9 @@ forEach(names, function(index) { console.log(this, index); });
 <pre>
 var myObj = {
 	say: function sayHello() { // this is an inline function
-		console.log("hello world"); 	}}
+		console.log("hello world"); 
+    }
+}
 </pre>
 
 Inline functions are **only** visible within the scope of the functions themselves. Hence, they dont act like function declarations  that are attached to the global scope, but rather are only available inside the scope of their definition itself.
