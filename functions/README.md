@@ -1,4 +1,6 @@
-### First-class objects
+# Functions
+
+## First-class objects
 
 Functions are first-class objects. They can be
 
@@ -12,7 +14,7 @@ var values = [123, 319, 539, 1599, 20, 293];
 values.sort(function(a, b) { return a - b}); // for ascending order
 </pre>
 
-### Anonymous functions
+## Anonymous functions
 
 - When a function is named, it is valid throughout the scope of the parent function.
 - Functions declared at the top-level belong to the window object.
@@ -30,13 +32,12 @@ var anotherFunc = function hello() { // this has a name property as hello
 console.log(anotherFunc.name === "hello") // true
 </pre>
 
-### Scoping
+## Scoping
 
 - Variable scoping only lasts within the function they are declared not in the block.
 - Named functions are in the scope of the window object aka global
 
-Invocations
-====
+# Invocations
 
 There are 4 different ways to invoke a function 
 
@@ -60,14 +61,15 @@ var person = new Person();
 console.log.call(this, "hello world"); // hello world
 </pre>
 
-### Function Arguments 
+## Function Arguments 
 
 - There is **NO ERROR** raised when there's a mismatch between the number of arguments provided and the parameters used. The left out parameters are left undefined.
 - All function invocations are passed **two implicit parameters**: *this* and *arguments*
 - **ARGUMENTS PARAMETER** : is a collection of all arguments passed to the function. It has a length property but it is *not an array*.
 - **THIS PARAMETER** : Refers to the object that is implicitly *associated* with the function invocation and is called the *function context*.
+- The `arguments` parameter has a `callee` property that refers to the currently executing function. [ not future proof ]
 
-#### Understanding the value of `this` in the 4 types of invocations
+#### Value of `this`
 
 a. Function Invocation
 
@@ -98,3 +100,13 @@ function forEach(list, callback) {
 var names = ["alpha", "beta", "gamma", "delta"];
 forEach(names, function(index) { console.log(this, index); });
 </pre>
+
+### Inline Functions
+
+<pre>
+var myObj = {
+	say: function sayHello() { // this is an inline function
+		console.log("hello world"); 	}}
+</pre>
+
+Inline functions are **only** visible within the scope of the functions themselves. Hence, they dont act like function declarations  that are attached to the global scope, but rather are only available inside the scope of their definition itself.
