@@ -16,4 +16,22 @@ console.log(addTwo(4)); // prints 8
 
 A closure keeps the variables in the function's scope from being garbage collected as long as the function exists.
 
+### Private Variables
 
+<pre>
+function Person(name) {
+    var _name = name;  // this now becomes private
+    
+    this.getName = function() {
+        return _name;
+    };
+
+    this.changeName = function(s) {
+        _name = s;
+    };
+}
+
+var bob = new Person("bob");
+console.log(bob.getName === "bob"); // true
+console.log(bob._name === undefined) // true 
+</pre>
